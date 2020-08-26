@@ -5,6 +5,8 @@ public class Duke {
     private static final String GREETING = "Hello! I'm Duke";
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
+    private static int taskNumber = 0;
+    private static String[] tasks = new String[100];
 
     public static void printGreeting() {
         System.out.println(LONG_LINE + System.lineSeparator() + GREETING);
@@ -12,7 +14,21 @@ public class Duke {
     }
 
     public static void printCommand(String input) {
-        System.out.println(LONG_LINE + System.lineSeparator() + input + System.lineSeparator() + LONG_LINE);
+        tasks[taskNumber] = input;
+        taskNumber++;
+        System.out.println(LONG_LINE + System.lineSeparator() + "added: " + input + System.lineSeparator() + LONG_LINE);
+    }
+
+    public static void printExit() {
+        System.out.println(LONG_LINE + System.lineSeparator() + EXIT + System.lineSeparator() + LONG_LINE);
+    }
+
+    public static void printList() {
+        System.out.println(LONG_LINE);
+        for (int i = 0; i < taskNumber; i++) {
+            System.out.println(i+1 + ". " + tasks[i]);
+        }
+        System.out.println(LONG_LINE);
     }
 
     public static void main(String[] args) {
@@ -22,10 +38,14 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
         while (!input.equals("bye")) {
-            printCommand(input);
+            if (input.equals("list")) {
+                printList();
+            } else {
+                printCommand(input);
+            }
             input = in.nextLine();
         }
 
-        printCommand(EXIT);
+        printExit();
     }
 }
