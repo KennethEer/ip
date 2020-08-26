@@ -14,8 +14,8 @@ public class Duke {
     }
 
     public static void printCommand(String input) {
-        Task t = new Task(input);
-        tasks[totalTaskNumber] = t;
+        Task currentTask = new Task(input);
+        tasks[totalTaskNumber] = currentTask;
         totalTaskNumber++;
         System.out.println(LONG_LINE + System.lineSeparator() + "added: " + input + System.lineSeparator() + LONG_LINE);
     }
