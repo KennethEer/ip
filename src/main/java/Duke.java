@@ -52,7 +52,6 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreeting();
-
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
@@ -66,7 +65,6 @@ public class Duke {
             }
             input = in.nextLine();
         }
-
         printExit();
     }
 }
