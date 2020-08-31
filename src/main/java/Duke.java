@@ -13,12 +13,39 @@ public class Duke {
         System.out.println(REQUEST + System.lineSeparator() + LONG_LINE);
     }
 
-    public static void printCommand(String input) {
+    /*public static void addTask(String input) {
         Task currentTask = new Task(input);
         tasks[totalTaskNumber] = currentTask;
         totalTaskNumber++;
         System.out.println(LONG_LINE + System.lineSeparator() + "added: " + input + System.lineSeparator() + LONG_LINE);
+    }*/
+
+    public static void addTask(String input) {
+        int slashIndex = input.indexOf('/');
+        Task currentTask;
+        if (input.startsWith("deadline ")) {
+            currentTask = new Deadline(input.substring(9, slashIndex - 1), input.substring(slashIndex + 4));
+        }
+        else if (input.startsWith("event ")) {
+            currentTask = new Event(input.substring(6, slashIndex - 1), input.substring(slashIndex + 4));
+        }
+        else if (input.startsWith("todo ")){
+            currentTask = new Todo(input.substring(5));
+        }
+        else {
+            //Treat all other tasks as Todo tasks
+            currentTask = new Todo(input);
+        }
+
+        tasks[totalTaskNumber] = currentTask;
+        totalTaskNumber++;
+        System.out.println(LONG_LINE + System.lineSeparator() + "Got it. I've added this task: ");
+        System.out.println("  " + currentTask);
+        String plural = (totalTaskNumber > 1) ? "s" : "";
+        System.out.println("Now you have " + totalTaskNumber + " task" + plural + " in the list.");
+        System.out.println(LONG_LINE);
     }
+
 
     public static void printExit() {
         System.out.println(LONG_LINE + System.lineSeparator() + EXIT + System.lineSeparator() + LONG_LINE);
@@ -28,7 +55,9 @@ public class Duke {
         System.out.println(LONG_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < totalTaskNumber; i++) {
-            System.out.println(i+1 + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+            //System.out.println(i+1 + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+            System.out.println(i+1 + "." + tasks[i]);
+
         }
         System.out.println(LONG_LINE);
     }
@@ -61,7 +90,7 @@ public class Duke {
             } else if (input.contains("done")) {
                 completeTask(input);
             } else {
-                printCommand(input);
+                addTask(input);
             }
             input = in.nextLine();
         }
