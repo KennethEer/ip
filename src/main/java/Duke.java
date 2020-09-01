@@ -36,10 +36,11 @@ public class Duke {
             //Treat all other tasks as Todo tasks
             currentTask = new Todo(input);
         }
-
-        tasks[totalTaskNumber] = currentTask;
-        totalTaskNumber++;
-        System.out.println(LONG_LINE + System.lineSeparator() + "Got it. I've added this task: ");
+        if (totalTaskNumber<100) {
+            tasks[totalTaskNumber] = currentTask;
+            totalTaskNumber++;
+        }
+        System.out.println(LONG_LINE + System.lineSeparator() + "Got it. I've added this task:");
         System.out.println("  " + currentTask);
         String plural = (totalTaskNumber > 1) ? "s" : "";
         System.out.println("Now you have " + totalTaskNumber + " task" + plural + " in the list.");
@@ -92,7 +93,9 @@ public class Duke {
             } else {
                 addTask(input);
             }
-            input = in.nextLine();
+            if (in.hasNextLine()) {
+                input = in.nextLine();
+            }
         }
         printExit();
     }
