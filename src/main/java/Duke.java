@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final String LONG_LINE = "____________________________________________________________";
+    public static final String LONG_LINE = "______________________________________________________________________";
     private static final String GREETING = "Hello! I'm Duke";
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
@@ -16,45 +16,102 @@ public class Duke {
 
     public static void addTask(String input) {
         int slashIndex = input.indexOf('/');
-        Task currentTask;
-        if (input.startsWith("deadline ")) {
-            currentTask = createDeadlineTask(input, slashIndex);
+        Task currentTask = null;
+        try {
+            if (input.startsWith("deadline ")) {
+                currentTask = createDeadlineTask(input, slashIndex);
+            } else if (input.startsWith("event ")) {
+                currentTask = createEventTask(input, slashIndex);
+            } else if (input.startsWith("todo ")) {
+                currentTask = createTodoTask(input);
+            } else {
+                throw new DukeException(input);
+            }
+            if (currentTask != null) {
+                if (totalTaskNumber < 100) {
+                    tasks[totalTaskNumber] = currentTask;
+                    totalTaskNumber++;
+                }
+                System.out.println(LONG_LINE + System.lineSeparator() + ADDED_TASK);
+                System.out.println("  " + currentTask);
+                String plural = (totalTaskNumber > 1) ? "s" : "";
+                System.out.println("Now you have " + totalTaskNumber + " task" + plural + " in the list.");
+                System.out.println(LONG_LINE);
+            }
+        } catch (DukeException e) {
+            e.printErrorMessage();
         }
-        else if (input.startsWith("event ")) {
-            currentTask = createEventTask(input, slashIndex);
-        }
-        else if (input.startsWith("todo ")){
-            currentTask = createTodoTask(input);
-        }
-        else {
-            //Treat all other tasks as Todo tasks
-            currentTask = createDefaultTask(input);
-        }
-        if (totalTaskNumber<100) {
-            tasks[totalTaskNumber] = currentTask;
-            totalTaskNumber++;
-        }
-        System.out.println(LONG_LINE + System.lineSeparator() + ADDED_TASK);
-        System.out.println("  " + currentTask);
-        String plural = (totalTaskNumber > 1) ? "s" : "";
-        System.out.println("Now you have " + totalTaskNumber + " task" + plural + " in the list.");
-        System.out.println(LONG_LINE);
+
     }
 
-    private static Task createDeadlineTask(String input, int slashIndex) {
-        return new Deadline(input.substring(9, slashIndex - 1), input.substring(slashIndex + 4));
+    private static boolean checkValid(String input, int slashIndex) {
+        boolean hasAt = input.contains(" /at ");
+        boolean hasBy = input.contains(" /by ");
+        boolean exceedLength = (slashIndex + 4) >= input.length();
+        boolean hasDeadlineTask = (slashIndex - 1) >= 9;
+        boolean hasEventTask = (slashIndex - 1) >= 6;
+
+        if (input.contains("deadline")) {
+            if (!hasBy || exceedLength || !hasDeadlineTask) {
+                return false;
+            }
+            return true;
+        }
+
+        if (input.contains("event")) {
+            if (!hasAt || exceedLength || !hasEventTask) {
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+    private static Task createDeadlineTask(String input, int slashIndex){
+        try {
+            if (checkValid(input, slashIndex) == false) {
+
+                if (input.trim().equals("deadline")) {
+                    throw new DukeException("deadline");
+                } else {
+                    throw new DukeException(input);
+                }
+            }
+            return new Deadline(input.substring(9, slashIndex - 1), input.substring(slashIndex + 4));
+        } catch (DukeException e) {
+            e.printErrorMessage();
+        }
+        return null;
     }
 
     private static Task createEventTask(String input, int slashIndex) {
-        return new Event(input.substring(6, slashIndex - 1), input.substring(slashIndex + 4));
+        try {
+            if (checkValid(input, slashIndex) == false) {
+                if (input.trim().equals("event")) {
+                    throw new DukeException("event");
+                } else {
+                    throw new DukeException(input);
+                }
+            }
+            return new Event(input.substring(6, slashIndex - 1), input.substring(slashIndex + 4));
+        } catch (DukeException e) {
+            e.printErrorMessage();
+        }
+        return null;
+
     }
 
     private static Task createTodoTask(String input) {
-        return new Todo(input.substring(5));
-    }
-
-    private static Task createDefaultTask(String input) {
-        return new Todo(input);
+        try {
+            if (input.substring(5).isBlank()) {
+                throw new DukeException("todo");
+            } else {
+                return new Todo(input.substring(5));
+            }
+        } catch (DukeException e) {
+            e.printErrorMessage();
+        }
+        return null;
     }
 
     public static void printExit() {
@@ -76,14 +133,15 @@ public class Duke {
         }
         String taskDigit = input.substring(5);
         int taskNumber = Integer.parseInt(taskDigit);
-        if (taskNumber > totalTaskNumber) {
+        if (taskNumber > totalTaskNumber || taskNumber <= 0) {
+            System.out.println("This task number is invalid. Please try again.");
             return;
         }
         Task taskToFinish = tasks[taskNumber - 1];
         taskToFinish.doTask();
         System.out.println(LONG_LINE);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskToFinish.getStatusIcon() + " " + taskToFinish.description);
+        System.out.println(taskToFinish);
         System.out.println(LONG_LINE);
     }
 
