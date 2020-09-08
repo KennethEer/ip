@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends Exception {
     private static final String ERROR_MESSAGE = "\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String EMPTY_TODO = "\u2639" + " OOPS!!! The description of a todo cannot be empty.";

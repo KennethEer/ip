@@ -1,8 +1,15 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
     public static final String LONG_LINE = "______________________________________________________________________";
-    private static final String GREETING = "Hello! I'm Duke";
+    private static final String GREETING = "Hello! I'm duke.Duke";
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
     private static final String ADDED_TASK = "Got it. I've added this task:";
@@ -69,7 +76,7 @@ public class Duke {
 
     private static Task createDeadlineTask(String input, int slashIndex){
         try {
-            if (checkValid(input, slashIndex) == false) {
+            if (!checkValid(input, slashIndex)) {
 
                 if (input.trim().equals("deadline")) {
                     throw new DukeException("deadline");
@@ -86,7 +93,7 @@ public class Duke {
 
     private static Task createEventTask(String input, int slashIndex) {
         try {
-            if (checkValid(input, slashIndex) == false) {
+            if (!checkValid(input, slashIndex)) {
                 if (input.trim().equals("event")) {
                     throw new DukeException("event");
                 } else {
