@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String LONG_LINE = "______________________________________________________________________";
@@ -13,8 +14,10 @@ public class Duke {
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
     private static final String ADDED_TASK = "Got it. I've added this task:";
-    private static int totalTaskNumber = 0;
-    private static Task[] tasks = new Task[100];
+    //private static int totalTaskNumber = 0;
+    //private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
 
     public static void printGreeting() {
         System.out.println(LONG_LINE + System.lineSeparator() + GREETING);
@@ -35,14 +38,15 @@ public class Duke {
                 throw new DukeException(input);
             }
             if (currentTask != null) {
-                if (totalTaskNumber < 100) {
-                    tasks[totalTaskNumber] = currentTask;
-                    totalTaskNumber++;
-                }
+                //if (totalTaskNumber < 100) {
+                //    tasks[totalTaskNumber] = currentTask;
+                //    totalTaskNumber++;
+                //}
+                tasks.add(currentTask);
                 System.out.println(LONG_LINE + System.lineSeparator() + ADDED_TASK);
                 System.out.println("  " + currentTask);
-                String plural = (totalTaskNumber > 1) ? "s" : "";
-                System.out.println("Now you have " + totalTaskNumber + " task" + plural + " in the list.");
+                String plural = (tasks.size() > 1) ? "s" : "";
+                System.out.println("Now you have " + tasks.size() + " task" + plural + " in the list.");
                 System.out.println(LONG_LINE);
             }
         } catch (DukeException e) {
@@ -128,8 +132,8 @@ public class Duke {
     public static void printList() {
         System.out.println(LONG_LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < totalTaskNumber; i++) {
-            System.out.println(i+1 + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i+1 + "." + tasks.get(i));
         }
         System.out.println(LONG_LINE);
     }
@@ -140,15 +144,38 @@ public class Duke {
         }
         String taskDigit = input.substring(5);
         int taskNumber = Integer.parseInt(taskDigit);
-        if (taskNumber > totalTaskNumber || taskNumber <= 0) {
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
             System.out.println("This task number is invalid. Please try again.");
             return;
         }
-        Task taskToFinish = tasks[taskNumber - 1];
+        Task taskToFinish = tasks.get(taskNumber - 1);
         taskToFinish.doTask();
         System.out.println(LONG_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskToFinish);
+        System.out.println(LONG_LINE);
+    }
+
+    public static void deleteTask(String input) {
+        Task taskToDelete = null;
+        if (input.length() <= 7) {
+            return;
+        }
+        String taskDigit = input.substring(7);
+        int taskNumber = Integer.parseInt(taskDigit);
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
+            System.out.println("This task number is invalid. Please try again.");
+            return;
+        }
+        else {
+            taskToDelete = tasks.get(taskNumber - 1);
+            tasks.remove(taskNumber - 1);
+        }
+        System.out.println(LONG_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + taskToDelete);
+        String plural = (tasks.size() > 1) ? "s" : "";
+        System.out.println("Now you have " + tasks.size() + " task" + plural + " in the list.");
         System.out.println(LONG_LINE);
     }
 
@@ -162,6 +189,8 @@ public class Duke {
                 printList();
             } else if (input.contains("done")) {
                 completeTask(input);
+            } else if (input.contains("delete")) {
+                deleteTask(input);
             } else {
                 addTask(input);
             }
