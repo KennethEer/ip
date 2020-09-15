@@ -12,4 +12,10 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    public String editFile() {
+        //0 means done, 1 means not done
+        return "D | " + super.editFile() + " | " + by + System.lineSeparator();
+    }
+
 }

@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -24,6 +26,10 @@ public class Duke {
         System.out.println(REQUEST + System.lineSeparator() + LONG_LINE);
     }
 
+    public static void insertTask() throws FileNotFoundException {
+        FileAccess.readFileContents("taskdata.txt", tasks);
+    }
+
     public static void addTask(String input) {
         int slashIndex = input.indexOf('/');
         Task currentTask = null;
@@ -38,11 +44,8 @@ public class Duke {
                 throw new DukeException(input);
             }
             if (currentTask != null) {
-                //if (totalTaskNumber < 100) {
-                //    tasks[totalTaskNumber] = currentTask;
-                //    totalTaskNumber++;
-                //}
                 tasks.add(currentTask);
+                changeFile();
                 System.out.println(LONG_LINE + System.lineSeparator() + ADDED_TASK);
                 System.out.println("  " + currentTask);
                 String plural = (tasks.size() > 1) ? "s" : "";
@@ -53,6 +56,14 @@ public class Duke {
             e.printErrorMessage();
         }
 
+    }
+
+    public static void changeFile() {
+        try {
+            FileAccess.writeToFile("taskdata.txt", tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     private static boolean checkValid(String input, int slashIndex) {
@@ -150,6 +161,7 @@ public class Duke {
         }
         Task taskToFinish = tasks.get(taskNumber - 1);
         taskToFinish.doTask();
+        changeFile();   //edit taskdata.txt
         System.out.println(LONG_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskToFinish);
@@ -170,6 +182,7 @@ public class Duke {
         else {
             taskToDelete = tasks.get(taskNumber - 1);
             tasks.remove(taskNumber - 1);
+            changeFile();   //edit taskdata.txt
         }
         System.out.println(LONG_LINE);
         System.out.println("Noted. I've removed this task:");
@@ -179,8 +192,11 @@ public class Duke {
         System.out.println(LONG_LINE);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         printGreeting();
+        FileAccess.loadData();
+        insertTask();
+
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
