@@ -16,10 +16,7 @@ public class Duke {
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
     private static final String ADDED_TASK = "Got it. I've added this task:";
-    //private static int totalTaskNumber = 0;
-    //private static Task[] tasks = new Task[100];
     private static ArrayList<Task> tasks = new ArrayList<>();
-
 
     public static void printGreeting() {
         System.out.println(LONG_LINE + System.lineSeparator() + GREETING);
@@ -92,7 +89,6 @@ public class Duke {
     private static Task createDeadlineTask(String input, int slashIndex){
         try {
             if (!checkValid(input, slashIndex)) {
-
                 if (input.trim().equals("deadline")) {
                     throw new DukeException("deadline");
                 } else {
@@ -154,18 +150,22 @@ public class Duke {
             return;
         }
         String taskDigit = input.substring(5);
-        int taskNumber = Integer.parseInt(taskDigit);
-        if (taskNumber > tasks.size() || taskNumber <= 0) {
-            System.out.println("This task number is invalid. Please try again.");
-            return;
+        try {
+            int taskNumber = Integer.parseInt(taskDigit);
+            if (taskNumber > tasks.size() || taskNumber <= 0) {
+                System.out.println("This task number is invalid. Please try again.");
+                return;
+            }
+            Task taskToFinish = tasks.get(taskNumber - 1);
+            taskToFinish.doTask();
+            changeFile();   //edit taskdata.txt
+            System.out.println(LONG_LINE);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(taskToFinish);
+            System.out.println(LONG_LINE);
+        } catch (NumberFormatException nfe) {
+            System.out.println("NumberFormatException: " + nfe.getMessage());
         }
-        Task taskToFinish = tasks.get(taskNumber - 1);
-        taskToFinish.doTask();
-        changeFile();   //edit taskdata.txt
-        System.out.println(LONG_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskToFinish);
-        System.out.println(LONG_LINE);
     }
 
     public static void deleteTask(String input) {
@@ -174,22 +174,25 @@ public class Duke {
             return;
         }
         String taskDigit = input.substring(7);
-        int taskNumber = Integer.parseInt(taskDigit);
-        if (taskNumber > tasks.size() || taskNumber <= 0) {
-            System.out.println("This task number is invalid. Please try again.");
-            return;
+        try {
+            int taskNumber = Integer.parseInt(taskDigit);
+            if (taskNumber > tasks.size() || taskNumber <= 0) {
+                System.out.println("This task number is invalid. Please try again.");
+                return;
+            } else {
+                taskToDelete = tasks.get(taskNumber - 1);
+                tasks.remove(taskNumber - 1);
+                changeFile();   //edit taskdata.txt
+            }
+            System.out.println(LONG_LINE);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + taskToDelete);
+            String plural = (tasks.size() > 1) ? "s" : "";
+            System.out.println("Now you have " + tasks.size() + " task" + plural + " in the list.");
+            System.out.println(LONG_LINE);
+        } catch (NumberFormatException nfe) {
+            System.out.println("NumberFormatException: " + nfe.getMessage());
         }
-        else {
-            taskToDelete = tasks.get(taskNumber - 1);
-            tasks.remove(taskNumber - 1);
-            changeFile();   //edit taskdata.txt
-        }
-        System.out.println(LONG_LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + taskToDelete);
-        String plural = (tasks.size() > 1) ? "s" : "";
-        System.out.println("Now you have " + tasks.size() + " task" + plural + " in the list.");
-        System.out.println(LONG_LINE);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
