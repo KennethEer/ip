@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -19,6 +21,10 @@ public class Duke {
     public static void printGreeting() {
         System.out.println(LONG_LINE + System.lineSeparator() + GREETING);
         System.out.println(REQUEST + System.lineSeparator() + LONG_LINE);
+    }
+
+    public static void insertTask() throws FileNotFoundException {
+        totalTaskNumber = FileAccess.readFileContents("taskdata.txt", tasks, totalTaskNumber);
     }
 
     public static void addTask(String input) {
@@ -38,6 +44,7 @@ public class Duke {
                 if (totalTaskNumber < 100) {
                     tasks[totalTaskNumber] = currentTask;
                     totalTaskNumber++;
+                    changeFile();
                 }
                 System.out.println(LONG_LINE + System.lineSeparator() + ADDED_TASK);
                 System.out.println("  " + currentTask);
@@ -49,6 +56,14 @@ public class Duke {
             e.printErrorMessage();
         }
 
+    }
+
+    public static void changeFile() {
+        try {
+            FileAccess.writeToFile("taskdata.txt", tasks, totalTaskNumber);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     private static boolean checkValid(String input, int slashIndex) {
@@ -146,14 +161,18 @@ public class Duke {
         }
         Task taskToFinish = tasks[taskNumber - 1];
         taskToFinish.doTask();
+        changeFile();   //edit taskdata.txt
         System.out.println(LONG_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskToFinish);
         System.out.println(LONG_LINE);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printGreeting();
+        FileAccess.loadData();
+        insertTask();
+
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();

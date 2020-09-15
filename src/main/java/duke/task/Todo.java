@@ -10,4 +10,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    public String editFile() {
+        return "T | " + super.editFile() + System.lineSeparator();
+    }
+
 }
