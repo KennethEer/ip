@@ -52,6 +52,13 @@ public class Ui {
         }
     }
 
+    public void showfindList(ArrayList<Task> matchList) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchList.size(); i++) {
+            System.out.println(i + 1 + "." + matchList.get(i));
+        }
+    }
+
     public void showCompleteTask(Task taskToFinish) {
         if (taskToFinish != null) {
             System.out.println("Nice! I've marked this task as done:");

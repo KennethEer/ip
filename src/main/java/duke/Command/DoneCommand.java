@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 import java.io.IOException;
 
-public class DoneCommand extends Command{
+public class DoneCommand extends Command {
     protected String input;
     public DoneCommand(String input) {
         this.input = input;

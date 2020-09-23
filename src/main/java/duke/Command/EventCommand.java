@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 import java.io.IOException;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     protected String input;
     public EventCommand(String input) {
         this.input = input;

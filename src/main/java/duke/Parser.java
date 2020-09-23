@@ -6,6 +6,7 @@ import duke.Command.DeleteCommand;
 import duke.Command.DoneCommand;
 import duke.Command.EventCommand;
 import duke.Command.ExitCommand;
+import duke.Command.FindCommand;
 import duke.Command.ListCommand;
 import duke.Command.TodoCommand;
 
@@ -32,6 +33,8 @@ public class Parser {
             command = new EventCommand(input);
         } else if (input.startsWith("todo ")) {
             command = new TodoCommand(input);
+        } else if (input.startsWith("find ")) {
+            command = new FindCommand(input);
         } else {
             throw new DukeException(input);
         }

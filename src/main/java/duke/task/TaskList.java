@@ -16,6 +16,7 @@ public class TaskList {
     private static final int TODO_CHAR = 5;  //number of characters in "todo "
     private static final int DONE_CHAR = 5;  //number of characters in "done "
     private static final int DELETE_CHAR = 7;  //number of characters in "delete "
+    private static final int FIND_CHAR = 5;  //number of characters in "find "
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -165,6 +166,17 @@ public class TaskList {
             System.out.println("NumberFormatException: " + nfe.getMessage());
         }
         return taskToDelete;
+    }
+
+    public ArrayList<Task> findTask(String input) {
+        ArrayList<Task> matchList = new ArrayList<>();
+        String findTask = input.substring(FIND_CHAR);
+        for (int i = 0; i < taskList.size(); i++) {
+            if ((taskList.get(i)).findInput(findTask)) {
+                 matchList.add(taskList.get(i));
+            }
+        }
+        return matchList;
     }
 }
 
