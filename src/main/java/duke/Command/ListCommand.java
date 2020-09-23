@@ -4,8 +4,6 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
-import java.io.IOException;
-
 /**
  * Represents list command to be executed. A <code>ListCommand</code> object corresponds to
  * the list command's execution.

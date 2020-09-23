@@ -24,4 +24,12 @@ public class Event extends Task {
     public String editFile() {
         return "E | " + super.editFile() + " | " + atWhen + System.lineSeparator();
     }
+
+    public boolean findInput(String input) {
+        if ((super.toString() + atWhen).contains(input)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

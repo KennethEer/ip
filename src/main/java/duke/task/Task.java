@@ -22,7 +22,6 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? tick : cross); //return [tick] or [X] symbols
     }
-
     /**
      * Returns status number to show if task is done.
      *
@@ -48,7 +47,18 @@ public class Task {
     public String toString() {
         return getStatusIcon() + " " + this.description;
     }
+
     public String editFile() {
         return getStatusNumber() + " | " + this.description;
     }
+
+    public boolean findInput(String input) {
+        if (toString().contains(input)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+

@@ -4,8 +4,6 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
-import java.io.IOException;
-
 /**
  * Represents exit command to be executed. A <code>ExitCommand</code> object corresponds to
  * the deadline command's execution and exit status.

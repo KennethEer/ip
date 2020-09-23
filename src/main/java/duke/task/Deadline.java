@@ -26,4 +26,12 @@ public class Deadline extends Task {
         return "D | " + super.editFile() + " | " + byDeadline + System.lineSeparator();
     }
 
+    public boolean findInput(String input) {
+        if ((super.toString() + byDeadline).contains(input)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
