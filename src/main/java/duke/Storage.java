@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * Represents a storage in the local filesystem. A <code>Storage</code> object corresponds to
+ * a filePath where data is stored e.g., <code>taskdata.txt</code>
+ */
+
 public class Storage {
     public static String filePath;
     protected static ArrayList<String> savedTasks = new ArrayList<>();
@@ -32,6 +37,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the text file specified in the filePath
+     *
+     * @param filePath  name of filePath where tasks are saved.
+     * @return list of saved tasks.
+     * @throws FileNotFoundException  If file is not found
+     */
     public ArrayList<String> loadFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -42,6 +54,12 @@ public class Storage {
         return savedTasks;
     }
 
+    /**
+     * Saves tasks to the textfile specified in the filePath
+     *
+     * @param tasks  list of tasks.
+     * @throws IOException  If there is a file write error
+     */
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write("");

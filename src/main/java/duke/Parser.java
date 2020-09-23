@@ -9,13 +9,29 @@ import duke.Command.ExitCommand;
 import duke.Command.ListCommand;
 import duke.Command.TodoCommand;
 
+/**
+ * Represents a parser that deals with making sense of the user command
+ */
 public class Parser {
     public static boolean isExit = false;
+
+    /**
+     * Returns command object from parsing an input message.
+     *
+     * @param input input typed by user.
+     * @return command to be executed.
+     */
     public static Command parse(String input) throws DukeException {
         Command command = createCommand(input);
         return command;
     }
 
+    /**
+     * Creates command object based on user's input.
+     *
+     * @param input input typed by user.
+     * @return command that is created.
+     */
     private static Command createCommand(String input) throws DukeException {
         Command command;
         if (input.equals("list")) {
