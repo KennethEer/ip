@@ -7,7 +7,7 @@ import duke.task.TaskList;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     protected String input;
     public DeleteCommand(String input) {
         this.input = input;

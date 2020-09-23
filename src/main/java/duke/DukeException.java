@@ -10,6 +10,7 @@ public class DukeException extends Exception {
     private static final String ERROR_TODO = "The todo task should be written as todo (name of task).";
     private static final String ERROR_DELETE = "delete task should be written as delete (task number).";
     private static final String ERROR_DONE = "done task should be written as done (task number).";
+    private static final String ERROR_FIND = "find task should be written as find (task description).";
 
     protected String taskInput;
 
@@ -35,6 +36,8 @@ public class DukeException extends Exception {
             typeOfError = ERROR_DELETE;
         } else if (taskInput.startsWith("done")) {
             typeOfError = ERROR_DONE;
+        } else if (taskInput.startsWith("find")) {
+            typeOfError = ERROR_FIND;
         } else {
             typeOfError = ERROR_MESSAGE;
         }
