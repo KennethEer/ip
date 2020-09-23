@@ -1,21 +1,20 @@
 package duke.task;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String byDeadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String byDeadline) {
         super(description);
-        this.by = by;
+        this.byDeadline = byDeadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byDeadline + ")";
     }
 
     public String editFile() {
-        //0 means done, 1 means not done
-        return "D | " + super.editFile() + " | " + by + System.lineSeparator();
+        return "D | " + super.editFile() + " | " + byDeadline + System.lineSeparator();
     }
 
 }

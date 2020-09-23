@@ -8,6 +8,8 @@ public class DukeException extends Exception {
     private static final String ERROR_DEADLINE = "The deadline task should be written as deadline (name of task) /by (deadline).";
     private static final String ERROR_EVENT = "The event task should be written as event (name of task) /at (time of event).";
     private static final String ERROR_TODO = "The todo task should be written as todo (name of task).";
+    private static final String ERROR_DELETE = "delete task should be written as delete (task number).";
+    private static final String ERROR_DONE = "done task should be written as done (task number).";
 
     protected String taskInput;
 
@@ -15,23 +17,27 @@ public class DukeException extends Exception {
         this.taskInput = input;
     }
 
-    void printErrorMessage() {
-        System.out.println(Duke.LONG_LINE);
+    public String getErrorMessage() {
+        String typeOfError;
         if (taskInput.equals("todo")) {
-            System.out.println(EMPTY_TODO);
+            typeOfError = EMPTY_TODO;
         } else if (taskInput.equals("event")) {
-            System.out.println(EMPTY_EVENT);
+            typeOfError = EMPTY_EVENT;
         } else if (taskInput.equals("deadline")) {
-            System.out.println(EMPTY_DEADLINE);
+            typeOfError = EMPTY_DEADLINE;
         } else if (taskInput.startsWith("deadline")) {
-            System.out.println(ERROR_DEADLINE);
+            typeOfError = ERROR_DEADLINE;
         } else if (taskInput.startsWith("event")) {
-            System.out.println(ERROR_EVENT);
+            typeOfError = ERROR_EVENT;
         } else if (taskInput.startsWith("todo")) {
-            System.out.println(ERROR_TODO);
+            typeOfError = ERROR_TODO;
+        } else if (taskInput.startsWith("delete")) {
+            typeOfError = ERROR_DELETE;
+        } else if (taskInput.startsWith("done")) {
+            typeOfError = ERROR_DONE;
         } else {
-            System.out.println(ERROR_MESSAGE);
+            typeOfError = ERROR_MESSAGE;
         }
-        System.out.println(Duke.LONG_LINE);
+        return typeOfError;
     }
 }

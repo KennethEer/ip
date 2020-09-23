@@ -1,20 +1,18 @@
 package duke.task;
 
 public class Event extends Task {
-    protected String at;
+    protected String atWhen;
 
-    public Event(String description, String at) {
+    public Event(String description, String atWhen) {
         super(description);
-        this.at = at;
+        this.atWhen = atWhen;
     }
-
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + atWhen + ")";
     }
 
     public String editFile() {
-        //0 means done, 1 means not done
-        return "E | " + super.editFile() + " | " + at + System.lineSeparator();
+        return "E | " + super.editFile() + " | " + atWhen + System.lineSeparator();
     }
 }
