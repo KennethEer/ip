@@ -1,5 +1,10 @@
 package duke;
 
+/**
+ * Represents the exceptions when the user types in invalid input. A <code>DukeException</code> object
+ * corresponds to the error message based on what kind of invalid user input
+ */
+
 public class DukeException extends Exception {
     private static final String ERROR_MESSAGE = "\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String EMPTY_TODO = "\u2639" + " OOPS!!! The description of a todo cannot be empty.";

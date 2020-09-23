@@ -4,6 +4,10 @@ import duke.DukeException;
 import duke.Ui;
 import java.util.ArrayList;
 
+/**
+ * Represents a task list. A <code>TaskList</code> object corresponds to
+ * a list of tasks and a Ui object
+ */
 public class TaskList {
     public Ui ui = new Ui();
 
@@ -26,10 +30,22 @@ public class TaskList {
         taskList = readFileContents(savedTasks);
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return list of tasks.
+     */
     public ArrayList<Task> getData() {
         return taskList;
     }
 
+    /**
+     * Reads the list of saved tasks and add to the list of tasks.
+     *
+     *
+     * @param savedTasks list of saved tasks
+     * @return list of tasks.
+     */
     public ArrayList<Task> readFileContents(ArrayList<String> savedTasks) {
         taskList = new ArrayList<>();
         for (int i = 0; i < savedTasks.size(); i++) {
@@ -49,7 +65,11 @@ public class TaskList {
         }
         return taskList;
     }
-
+    /**
+     * Checks if the task is done and change done status of task
+     *
+     * @param sentence sentence from saved file.
+     */
     private void checkDone(String sentence) {
         if (sentence.charAt(4) == '1') {
             (taskList.get(taskList.size()-1)).doTask();
@@ -60,6 +80,14 @@ public class TaskList {
         endIndexOfDescription = slashIndex - 1;
         startIndexOfWhen = slashIndex + 4;
     }
+
+    /**
+     * Checks if the user input is valid
+     *
+     * @param input input typed in by user
+     * @param slashIndex index of slash in user input
+     * @return user input validity status
+     */
 
     private boolean checkValid(String input, int slashIndex) {
         getIndex(slashIndex);
@@ -81,6 +109,14 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Creates a deadline task
+     *
+     * @param input input typed in by user
+     * @param slashIndex index of slash in user input
+     * @return deadline task that is created
+     * @throws DukeException  If user input is invalid.
+     */
     public Task createDeadlineTask(String input, int slashIndex){
         getIndex(slashIndex);
         try {
@@ -97,6 +133,14 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Creates an event task
+     *
+     * @param input input typed in by user
+     * @param slashIndex index of slash in user input
+     * @return event task that is created
+     * @throws DukeException  If user input is invalid.
+     */
     public Task createEventTask(String input, int slashIndex) {
         try {
             if (checkValid(input, slashIndex)) {
@@ -112,6 +156,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Creates a todo task
+     *
+     * @param input input typed in by user
+     * @return todo task that is created
+     * @throws DukeException  If user input is invalid.
+     */
     public Task createTodoTask(String input) {
         try {
             if (input.substring(TODO_CHAR).isBlank()) {
@@ -125,6 +176,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Completes task
+     *
+     * @param input input typed in by user
+     * @return task that is completed
+     * @throws NumberFormatException  If user input is invalid.
+     */
     public Task completeTask(String input) throws NumberFormatException {
         Task taskToFinish = null;
         if (input.length() <= DONE_CHAR) {
@@ -146,6 +204,13 @@ public class TaskList {
         return taskToFinish;
     }
 
+    /**
+     * Deletes task
+     *
+     * @param input input typed in by user
+     * @return task that is deleted
+     * @throws NumberFormatException  If user input is invalid.
+     */
     public Task deleteTask(String input) {
         Task taskToDelete = null;
         if (input.length() <= DELETE_CHAR) {
