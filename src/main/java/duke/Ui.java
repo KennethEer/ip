@@ -81,12 +81,6 @@ public class Ui {
         }
     }
 
-<<<<<<< HEAD
-    /**
-     * Prints the message about the task that was done when user inputs done command
-     *
-     */
-=======
     public void showfindList(ArrayList<Task> matchList) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < matchList.size(); i++) {
@@ -94,7 +88,10 @@ public class Ui {
         }
     }
 
->>>>>>> master
+    /**
+     * Prints the message about the task that was done when user inputs done command
+     *
+     */
     public void showCompleteTask(Task taskToFinish) {
         if (taskToFinish != null) {
             System.out.println("Nice! I've marked this task as done:");
