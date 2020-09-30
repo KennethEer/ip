@@ -31,13 +31,13 @@ Adds a todo task to the list of tasks
 
 Usage: `todo DESCRIPTION`
 
-Example: `todo study`
+Example: `todo school homework`
 
 Expected Outcome: 
 ```
 ______________________________________________________________________
 Got it. I've added this task:
-  [T][✘] study
+  [T][✘] school homework
 Now you have 1 task in the list.
 ______________________________________________________________________
 
@@ -91,7 +91,7 @@ Expected Outcome:
 ```
 ______________________________________________________________________
 Here are the tasks in your list:
-1.[T][✘] study
+1.[T][✘] school homework
 2.[E][✘] running (at: 1 Jan 2020 11pm)
 3.[D][✘] homework (by: 12 Feb 2020 3pm)
 ______________________________________________________________________
@@ -110,7 +110,7 @@ Expected Outcome:
 ```
 ______________________________________________________________________
 Nice! I've marked this task as done:
-[T][✓] study
+[T][✓] school homework
 ______________________________________________________________________
 
 ```
@@ -145,8 +145,8 @@ Expected Outcome:
 ```
 ______________________________________________________________________
 Here are the matching tasks in your list:
-1.[D][✘] homework (by: 12 Feb 2020 3pm)
-2.[T][✘] school homework
+1.[T][✓] school homework
+2.[D][✘] homework (by: 12 Feb 2020 3pm)
 ______________________________________________________________________
 
 ```
