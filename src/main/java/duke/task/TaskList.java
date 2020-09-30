@@ -192,7 +192,7 @@ public class TaskList {
         String taskDigit = input.substring(DONE_CHAR);
         try {
             int taskNumber = Integer.parseInt(taskDigit);
-            if (!(taskNumber >= 0 && taskNumber <= taskList.size())) {
+            if (!(taskNumber > 0 && taskNumber <= taskList.size())) {
                 System.out.println("This task number is invalid. Please try again.");
                 return null;
             }

@@ -1,5 +1,18 @@
 # User Guide
 
+## Getting Started
+
+Ensure you have java 11 installed. Download the jar file.
+
+Change into the directory containing the jar file and 
+run the following commands:
+
+`chcp 65001`
+
+`java -Dfile.encoding=UTF-8 -jar IndividualProject.jar`
+
+If the status icons show ? instead of ✘ or ✓, you can change the font in your terminal to NSimSun.
+
 ## Features 
 * [Adding a todo task](#todotask)
 * [Adding an event task](#eventtask)
@@ -9,6 +22,8 @@
 * [Deleting a task](#delete)
 * [Finding tasks](#find)
 * [Exiting the program](#exit)
+
+> Note: All commands are case-sensitive
 
 <a name="todotask"></a>
 ### `todo` - Adding a todo task 
