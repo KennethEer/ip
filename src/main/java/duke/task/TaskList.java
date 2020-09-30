@@ -65,6 +65,7 @@ public class TaskList {
         }
         return taskList;
     }
+
     /**
      * Checks if the task is done and change done status of task
      *
@@ -88,7 +89,6 @@ public class TaskList {
      * @param slashIndex index of slash in user input
      * @return user input validity status
      */
-
     private boolean checkValid(String input, int slashIndex) {
         getIndex(slashIndex);
         boolean hasAt = input.contains(" /at ");
@@ -117,7 +117,7 @@ public class TaskList {
      * @return deadline task that is created
      * @throws DukeException  If user input is invalid.
      */
-    public Task createDeadlineTask(String input, int slashIndex){
+    public Task createDeadlineTask(String input, int slashIndex) {
         getIndex(slashIndex);
         try {
             if (checkValid(input, slashIndex)) {

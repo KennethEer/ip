@@ -9,7 +9,7 @@ import java.util.Scanner;
  * a filePath where data is stored e.g., <code>taskdata.txt</code>
  */
 public class Ui {
-    public static final String LONG_LINE = "______________________________________________________________________";
+    private static final String LONG_LINE = "______________________________________________________________________";
     private static final String GREETING = "Hello! I'm Duke";
     private static final String REQUEST = "What can I do for you?";
     private static final String EXIT = "Bye. Hope to see you again soon!";
@@ -111,6 +111,7 @@ public class Ui {
             System.out.println("Now you have " + taskList.size() + " task" + plural + " in the list.");
         }
     }
+
     /**
      * Prints line
      *

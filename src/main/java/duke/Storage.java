@@ -27,7 +27,7 @@ public class Storage {
         return savedTasks;
     }
 
-    public void createFileObject(String filePath){
+    public void createFileObject(String filePath) {
         try {
             File f = new File(filePath);
             f.createNewFile();

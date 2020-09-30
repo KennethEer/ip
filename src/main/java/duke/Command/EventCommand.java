@@ -10,7 +10,7 @@ import java.io.IOException;
  * Represents event command to be executed. A <code>EventCommand</code> object corresponds to
  * the event command's execution.
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     protected String input;
     public EventCommand(String input) {
         this.input = input;

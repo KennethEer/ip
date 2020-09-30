@@ -4,14 +4,13 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
-
 import java.io.IOException;
 
 /**
  * Represents delete command to be executed. A <code>DeleteCommand</code> object corresponds to
  * the delete command's execution.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     protected String input;
     public DeleteCommand(String input) {
         this.input = input;

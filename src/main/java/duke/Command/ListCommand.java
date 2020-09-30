@@ -8,7 +8,7 @@ import duke.task.TaskList;
  * Represents list command to be executed. A <code>ListCommand</code> object corresponds to
  * the list command's execution.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Executes list command
      *

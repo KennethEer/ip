@@ -14,6 +14,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
     /**
      * Returns status icon to show if task is done.
      *
@@ -22,6 +23,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? tick : cross); //return [tick] or [X] symbols
     }
+
     /**
      * Returns status number to show if task is done.
      *

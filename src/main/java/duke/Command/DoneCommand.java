@@ -10,7 +10,7 @@ import java.io.IOException;
  * Represents done command to be executed. A <code>DoneCommand</code> object corresponds to
  * the done command's execution.
  */
-public class DoneCommand extends Command{
+public class DoneCommand extends Command {
     protected String input;
     public DoneCommand(String input) {
         this.input = input;
