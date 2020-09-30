@@ -51,7 +51,7 @@ public class TaskList {
         for (int i = 0; i < savedTasks.size(); i++) {
             String sentence = savedTasks.get(i);
             if (sentence.startsWith("T")) {
-                taskList.add(new Todo(sentence.substring(7)));
+                taskList.add(new Todo(sentence.substring(8)));
             }
             if (sentence.startsWith("E")) {
                 int slashIndex = sentence.indexOf('|', 7);
